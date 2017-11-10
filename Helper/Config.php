@@ -2,12 +2,12 @@
 
 namespace Reviewscouk\Reviews\Helper;
 
-use Magento\Framework as Framework;
-use Magento\Store as Store;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Store\Model\ScopeInterface;
 
-class Config extends Framework\App\Helper\AbstractHelper
+class Config extends AbstractHelper
 {
-
     const XML_CONFIG_REVIEWS_REGION = "reviewscouk_reviews_setup/settings/region";
     const XML_CONFIG_API_KEY = 'reviewscouk_reviews_setup/settings/api_key';
     const XML_CONFIG_STORE_ID = 'reviewscouk_reviews_setup/settings/store_id';
@@ -22,12 +22,11 @@ class Config extends Framework\App\Helper\AbstractHelper
     const XML_CONFIG_MERCHANT_REVIEWS_ENABLED = 'reviewscouk_reviews_automation/collection/merchant_enabled';
     const XML_CONFIG_PRODUCT_REVIEWS_ENABLED = 'reviewscouk_reviews_automation/collection/product_enabled';
     const XML_CONFIG_PRODUCT_FEED_ENABLED = 'reviewscouk_reviews_automation/product_feed/product_feed_enabled';
-    const XML_CONFIG_USE_GROUP_SKU = "reviewscouk_reviews_advanced/settings/used_grouped_skus";
-
+    const XML_CONFIG_USE_GROUP_SKU = "reviewscouk_reviews_advanced/settings/use_grouped_skus";
 
     private $config;
 
-    public function __construct(Framework\App\Config\ScopeConfigInterface $scopeConfigInterface)
+    public function __construct(ScopeConfigInterface $scopeConfigInterface)
     {
         $this->config = $scopeConfigInterface;
     }
@@ -106,11 +105,12 @@ class Config extends Framework\App\Helper\AbstractHelper
     /**
      * @param $code
      * @param $magentoStore
+     *
      * @return mixed
      */
     private function getValue($code, $magentoStore)
     {
-        $value = $this->config->getValue($code, Store\Model\ScopeInterface::SCOPE_STORE, $magentoStore);
+        $value = $this->config->getValue($code, ScopeInterface::SCOPE_STORE, $magentoStore);
         return $value;
     }
 }

@@ -2,10 +2,9 @@
 
 namespace Reviewscouk\Reviews\Helper;
 
-//use Magento\Framework\Registry;
-use Magento\Framework as Framework;
+use Magento\Framework\App\Helper\AbstractHelper;
 
-class Data extends Framework\App\Helper\AbstractHelper
+class Data extends AbstractHelper
 {
 
     public function getProductSkus($product)
